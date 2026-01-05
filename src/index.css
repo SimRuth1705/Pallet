@@ -1,0 +1,16 @@
+@import "tailwindcss";
+
+@font-face {
+  font-family: "MyCopilotFont";
+  src: url("./assets/fonts/copilot.otf") format("truetype");
+  font-weight: bold;
+  font-style: normal;
+}
+
+@theme {
+  --color-primary: #9cafaa;
+  --color-secondary: #d6a99d;
+  --color-accent: #d6dac8;
+  --color-light: #fbf3d5;
+  --font-brand: "MyCopilotFont", monospace;
+}
