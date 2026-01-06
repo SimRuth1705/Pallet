@@ -1,9 +1,15 @@
 import React from "react";
 import { FiX, FiTrash2 } from "react-icons/fi";
 import { useCart } from "../context/CartContext";
+import { useNavigate } from "react-router-dom";
 
 const CartSidebar = ({ isOpen, onClose }) => {
   const { cart, removeFromCart, updateQuantity, getCartTotal } = useCart();
+  const navigate = useNavigate();
+  const handleCheckout = () => {
+    navigate("/checkout");
+    onClose();
+  }
 
   return (
     <div
@@ -112,7 +118,7 @@ const CartSidebar = ({ isOpen, onClose }) => {
           <p className="text-xs text-gray-500 mb-4 text-center">
             Shipping and taxes calculated at checkout.
           </p>
-          <button className="w-full bg-[#9CAFAA] text-white py-3 rounded-full font-bold hover:bg-[#D6A99D] transition-colors shadow-lg">
+          <button onClick={handleCheckout} className="w-full bg-[#9CAFAA] text-white py-3 rounded-full font-bold hover:bg-[#D6A99D] transition-colors shadow-lg">
             Checkout Now
           </button>
         </div>

@@ -1,6 +1,7 @@
 import { HiShoppingBag } from "react-icons/hi";
 import { HiArrowPathRoundedSquare } from "react-icons/hi2";
 import { HiOutlineCreditCard } from "react-icons/hi2";
+import { Link } from "react-router-dom";
 
 const FeaturedCollection = () => {
   return (
@@ -19,12 +20,9 @@ const FeaturedCollection = () => {
             day.
           </p>
           <div>
-            <a
-              href="#"
-              className="inline-block bg-black text-white font-medium py-3 px-8 rounded-full hover:bg-gray-800 transition transform hover:-translate-y-1"
-            >
+            <Link to="/Collections/:collection" className="inline-block bg-black text-white font-medium py-3 px-8 rounded-full hover:bg-gray-800 transition transform hover:-translate-y-1">
               Shop Now
-            </a>
+            </Link>
           </div>
         </div>
         <div className="w-full lg:w-1/2 h-72 md:h-96 lg:h-auto relative order-first lg:order-last">
