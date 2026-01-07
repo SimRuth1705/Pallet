@@ -1,7 +1,10 @@
 import React from "react";
 import { useState } from "react";
+import PaypalButton from "../context/PaypalButton";
 
 function Checkout() {
+  const navigate = useNavigate();
+  const [Checkoutid, setCheckoutid] = useState(null);
   const [shippingAddress, setShippingAddress] = useState({
     firstname: "",
     lastname: "",
@@ -12,12 +15,22 @@ function Checkout() {
     phone: "",
   });
 
+  const handleCreateCheckout = (e) => {
+    e.preventDefault();
+    setCheckoutid("mock-checkout-id-12345");
+  };
+
+  const handlePaymentSuccess = (details) => {
+    alert("Payment Successful!", details);
+    navigate("/order-confirmation");
+  }
+
   return (
     <>
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-7xl mx-auto py-10 font-sans px-6 tracking-tighter">
         <div className="bg-white rounded-lg p-6">
           <h1 className="text-2xl uppercase mb-6">Checkout</h1>
-          <form>
+          <form onSubmit={handleCreateCheckout}>
             <h3 className="text-lg mb-4"> Contact Details </h3>
             <div className="mb-4">
               <label className="block text-gray-700">Email</label>
@@ -122,7 +135,8 @@ function Checkout() {
                 className="w-full border rounded-md p-2"
                 required
               />
-            </div><div className="mb-4">
+            </div>
+            <div className="mb-4">
               <label className="block text-gray-700">Phone</label>
               <input
                 type="text"
@@ -137,7 +151,25 @@ function Checkout() {
                 required
               />
             </div>
-            <div className="mt-6"></div>
+            <div className="mt-6">
+              {!Checkoutid ? (
+                <button
+                  type="submit"
+                  className="bg-gray-600 text-white w-full px-4 py-2 rounded-md"
+                >
+                  Place Order
+                </button>
+              ) : (
+                <div>
+                  <h3 className="text-lg mb-4">Pay With Paypal</h3>
+                  <PaypalButton
+                    amount={100}
+                    onSuccess={handlePaymentSuccess}
+                    onError={(err) => alert("Payment Failed")}
+                  />
+                </div>
+              )}
+            </div>
           </form>
         </div>
       </div>
