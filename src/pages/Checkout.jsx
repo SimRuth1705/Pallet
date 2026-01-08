@@ -1,9 +1,33 @@
-import React from "react";
-import { useState } from "react";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import PaypalButton from "../context/PaypalButton";
 
 function Checkout() {
   const navigate = useNavigate();
+
+  // --- FIX 1: DEFINE MOCK CART DATA HERE ---
+  // (Later, you will replace this with: const { cart } = useShopContext(); )
+  const cart = {
+    products: [
+      {
+        name: "Test Product",
+        size: "M",
+        color: "Blue",
+        price: 50,
+        image: "https://via.placeholder.com/150",
+      },
+      {
+        name: "Test Product 2",
+        size: "L",
+        color: "Red",
+        price: 50,
+        image: "https://via.placeholder.com/150",
+      },
+    ],
+    totalPrize: 100,
+  };
+  // ----------------------------------------
+
   const [Checkoutid, setCheckoutid] = useState(null);
   const [shippingAddress, setShippingAddress] = useState({
     firstname: "",
@@ -21,9 +45,9 @@ function Checkout() {
   };
 
   const handlePaymentSuccess = (details) => {
-    alert("Payment Successful!", details);
+    alert("Payment Successful! Transaction ID: " + details.id);
     navigate("/order-confirmation");
-  }
+  };
 
   return (
     <>
@@ -108,7 +132,7 @@ function Checkout() {
               <div>
                 <label className="block text-gray-700">Pincode</label>
                 <input
-                  type="text"
+                  type="number"
                   value={shippingAddress.pincode}
                   onChange={(e) =>
                     setShippingAddress({
@@ -139,7 +163,7 @@ function Checkout() {
             <div className="mb-4">
               <label className="block text-gray-700">Phone</label>
               <input
-                type="text"
+                type="number"
                 value={shippingAddress.phone}
                 onChange={(e) =>
                   setShippingAddress({
@@ -163,7 +187,7 @@ function Checkout() {
                 <div>
                   <h3 className="text-lg mb-4">Pay With Paypal</h3>
                   <PaypalButton
-                    amount={100}
+                    amount={cart.totalPrize}
                     onSuccess={handlePaymentSuccess}
                     onError={(err) => alert("Payment Failed")}
                   />
@@ -171,6 +195,45 @@ function Checkout() {
               )}
             </div>
           </form>
+        </div>
+        <div className="bg-gray-50 p-6 rounded-lg">
+          <h3 className="text-lg mb-4">Order Summary</h3>
+          <div className="border-t py-4 mb-4">
+            {/* FIX 2: Use lowercase 'cart' here */}
+            {cart.products.map((product, index) => (
+              <div
+                key={index}
+                className="flex justify-between mb-4 items-start py-2 border-b"
+              >
+                <div className="flex items-start">
+                  <img
+                    src={product.image}
+                    alt={product.name}
+                    className="w-20 h-24 object-cover mr-4"
+                  />
+                  <div>
+                    <h3 className="text-md">{product.name}</h3>
+                    <p className="text-gray-500">Size: {product.size}</p>
+                    <p className="text-gray-500">Color: {product.color}</p>
+                  </div>
+                </div>
+                {/* FIX 3: Corrected toLocaleString() typo */}
+                <p className="text-xl">${product.price?.toLocaleString()}</p>
+              </div>
+            ))}
+          </div>
+          <div className="flex justify-between items-center text-lg mb-4">
+            <p>SubTotal</p>
+            <p>${cart.totalPrize?.toLocaleString()}</p>
+          </div>
+          <div className="flex justify-between items-center text-lg">
+            <p>Shipping</p>
+            <p>Free</p>
+          </div>
+          <div className="flex justify-between items-center text-lg mt-4 border-t p-4">
+            <p>Total</p>
+            <p>${cart.totalPrize?.toLocaleString()}</p>
+          </div>
         </div>
       </div>
     </>

@@ -16,14 +16,11 @@ export const CartProvider = ({ children }) => {
   }, [cart]);
 
   const addToCart = (product, quantity, color, size) => {
-    // FIX 1: Check existing item OUTSIDE of setCart
-    // FIX 2: Use _id instead of id to match your data
     const existingItem = cart.find(
       (item) => item._id === product._id && item.color === color && item.size === size
     );
 
     if (existingItem) {
-      // FIX 3: Toast is OUTSIDE the setter, so it only runs once
       toast.info("Item quantity updated in cart");
 
       setCart((prevCart) =>

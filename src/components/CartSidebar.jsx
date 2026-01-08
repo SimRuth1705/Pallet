@@ -17,20 +17,17 @@ const CartSidebar = ({ isOpen, onClose }) => {
         isOpen ? "opacity-100 visible" : "opacity-0 invisible pointer-events-none"
       }`}
     >
-      {/* Backdrop */}
       <div
         className="absolute inset-0 bg-black/50 transition-opacity"
         onClick={onClose}
       ></div>
 
-      {/* Sidebar Drawer */}
       <div
         className={`absolute top-0 right-0 h-full w-full max-w-md bg-white shadow-2xl transform transition-transform duration-300 ease-in-out flex flex-col overflow-x-hidden ${
           isOpen ? "translate-x-0" : "translate-x-full"
         }`}
       >
         
-        {/* 1. Header (Fixed at Top) */}
         <div className="flex items-center justify-between p-6 border-b border-gray-100 flex-none">
           <h2 className="text-2xl font-bold text-[#9CAFAA]">Your Cart ({cart.length})</h2>
           <button onClick={onClose} className="p-2 hover:bg-gray-100 rounded-full transition">
@@ -38,8 +35,6 @@ const CartSidebar = ({ isOpen, onClose }) => {
           </button>
         </div>
 
-        {/* 2. Cart Items (Scrollable Middle) */}
-        {/* overflow-y-auto enables vertical scroll. overflow-x-hidden kills horizontal scroll. */}
         <div className="flex-1 overflow-y-auto overflow-x-hidden p-6 space-y-6">
           {cart.length === 0 ? (
             <div className="text-center text-gray-500 mt-20">
@@ -50,7 +45,6 @@ const CartSidebar = ({ isOpen, onClose }) => {
             cart.map((item) => (
               <div key={item.cartId} className="flex gap-4 border-b border-gray-100 pb-4">
                 
-                {/* Image */}
                 <div className="w-20 h-24 shrink-0 overflow-hidden rounded-md border border-gray-200">
                   <img
                     src={item.image}
@@ -59,8 +53,6 @@ const CartSidebar = ({ isOpen, onClose }) => {
                   />
                 </div>
 
-                {/* Info */}
-                {/* CRITICAL FIX: 'min-w-0' is required here for truncate to work in a flex container */}
                 <div className="flex-1 min-w-0 flex flex-col justify-between">
                   <div>
                     <h3 className="font-bold text-[#9CAFAA] truncate">{item.name}</h3>
@@ -90,7 +82,6 @@ const CartSidebar = ({ isOpen, onClose }) => {
                   </div>
                 </div>
 
-                {/* Price & Remove */}
                 <div className="flex-none flex flex-col justify-between items-end">
                   <span className="font-bold text-lg text-[#9CAFAA]">
                     ${(item.price * item.quantity).toFixed(2)}
@@ -106,8 +97,6 @@ const CartSidebar = ({ isOpen, onClose }) => {
             ))
           )}
         </div>
-
-        {/* 3. Footer (Fixed at Bottom) */}
         <div className="bg-[#FBF3D5] p-6 border-t border-gray-100 flex-none">
           <div className="flex justify-between items-center mb-4">
             <span className="text-gray-600 font-medium">Subtotal</span>
