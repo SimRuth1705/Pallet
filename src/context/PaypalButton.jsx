@@ -1,11 +1,10 @@
 import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
 
-
 function PaypalButton({ amount, onSuccess, onError }) {
   return (
     <PayPalScriptProvider
       options={{
-        "client-id": "AT2VwR--Kv1119zpSgGEaqpU0R809B_MyI293yVGb2MHgmSlnm8sWgXzl_xrcP7-xJMQYdVZw5acEOYj",
+        "client-id": import.meta.env.VITE_PAYPAL_CLIENT_ID,
         currency: "USD",
         intent: "capture",
       }}
@@ -17,8 +16,8 @@ function PaypalButton({ amount, onSuccess, onError }) {
             purchase_units: [
               {
                 amount: {
-                  value: amount.toString(), 
-                  currency_code: "USD" 
+                  value: amount.toString(),
+                  currency_code: "USD",
                 },
               },
             ],
@@ -26,7 +25,7 @@ function PaypalButton({ amount, onSuccess, onError }) {
         }}
         onApprove={(data, actions) => {
           return actions.order.capture().then((details) => {
-             onSuccess(details); 
+            onSuccess(details);
           });
         }}
         onError={(err) => {

@@ -13,6 +13,7 @@ import ProductDetails from "./pages/ProductDetails";
 import MyOrderPage from "./pages/MyOrderPage";
 import Checkout from "./pages/Checkout";
 import OrderDetailsPage from "./pages/OrderDetailsPage";
+import AdminLayout from "./Admin/AdminLayout";
 
 function App() {
   return (
@@ -28,10 +29,12 @@ function App() {
             <Route path="/collections" element={<CollectionPage />} />
             <Route path="/collections/:collection" element={<CollectionPage />} />
             <Route path="/product/:productId" element={<ProductDetails />} />
-            <Route path="/orders" element={<MyOrderPage />} />
             <Route path="/checkout" element={<Checkout />} />
             <Route path="/order-confirmation" element={<OrderDetailsPage />} />
             <Route path="/my-orders" element={<MyOrderPage />} />
+
+            // Admin
+            <Route path="/admin/*" element={<AdminLayout />} />
 
 
           </Route>
