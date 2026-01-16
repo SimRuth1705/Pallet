@@ -21,6 +21,7 @@ function App() {
       <Router>
         <Toaster position="top-right" richColors />
         <Routes>
+          {/* Group 1: User Pages (Wrapped in Layout with Pallet Navbar) */}
           <Route element={<Layout />}>
             <Route path="/" element={<Home />} />
             <Route path="/login" element={<Login />} />
@@ -32,12 +33,10 @@ function App() {
             <Route path="/checkout" element={<Checkout />} />
             <Route path="/order-confirmation" element={<OrderDetailsPage />} />
             <Route path="/my-orders" element={<MyOrderPage />} />
-
-            // Admin
-            <Route path="/admin/*" element={<AdminLayout />} />
-
-
           </Route>
+
+          <Route path="/admin/*" element={<AdminLayout />} />
+
           <Route path="*" element={<NotFound />} />
         </Routes>
       </Router>
