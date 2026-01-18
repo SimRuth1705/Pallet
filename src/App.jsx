@@ -21,7 +21,6 @@ function App() {
       <Router>
         <Toaster position="top-right" richColors />
         <Routes>
-          {/* Group 1: User Pages (Wrapped in Layout with Pallet Navbar) */}
           <Route element={<Layout />}>
             <Route path="/" element={<Home />} />
             <Route path="/login" element={<Login />} />
