@@ -1,0 +1,63 @@
+@import "tailwindcss";
+
+@font-face {
+  font-family: "MyCopilotFont";
+  src: url("./assets/fonts/copilot.otf") format("truetype");
+  font-weight: bold;
+  font-style: normal;
+}
+
+@theme {
+  --color-primary: #9cafaa;
+  --color-secondary: #d6a99d;
+  --color-accent: #d6dac8;
+  --color-light: #fbf3d5;
+  --font-brand: "MyCopilotFont", monospace;
+  
+  /* Admin Dashboard Palette Aliasing */
+  --color-indigo-50: #f2f5f4;
+  --color-indigo-100: #e0e8e6;
+  --color-indigo-200: #c1d0cc;
+  --color-indigo-300: #9cafaa; /* Maps to primary */
+  --color-indigo-400: #889e99;
+  --color-indigo-500: #7b918b;
+  --color-indigo-600: #6d837d; /* Primary interaction state */
+  --color-indigo-700: #586d67;
+  --color-indigo-800: #495e58;
+  --color-indigo-900: #3f524d;
+  --color-indigo-950: #2d3f3b;
+}
+
+/* Custom Scrollbar */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 6px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background-color: #374151; /* gray-700 */
+  border-radius: 10px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background-color: #4b5563; /* gray-600 */
+}
+
+/* Apply nicely to global scrollbar but specifically dark mode oriented ones */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}

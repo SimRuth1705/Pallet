@@ -13,9 +13,9 @@ const NavLinks = ({ mobile, onClick }) => {
 
   return (
     <>
-      <Link to="/Collections/:collection?gender=women&size=&material=&brand=&maxPrice=150" className={baseClass} onClick={onClick}>Women</Link>
-      <Link to="/Collections/:collection?gender=men&size=&material=&brand=&maxPrice=150" className={baseClass} onClick={onClick}>Men</Link>
-      <Link to="/Collections/:collection?gender=men&size=xs&material=cotton&brand=&maxPrice=150" className={baseClass} onClick={onClick}>Kids</Link>
+      <Link to="/collections/women?gender=women&size=&material=&brand=&maxPrice=150" className={baseClass} onClick={onClick}>Women</Link>
+      <Link to="/collections/men?gender=men&size=&material=&brand=&maxPrice=150" className={baseClass} onClick={onClick}>Men</Link>
+      <Link to="/collections/kids?gender=kids&size=xs&material=cotton&brand=&maxPrice=150" className={baseClass} onClick={onClick}>Kids</Link>
       <Link to="/sport" className={baseClass} onClick={onClick}>Sport</Link>
       <Link to="/brands" className={baseClass} onClick={onClick}>Brands</Link>
       <Link to="/new" className={baseClass} onClick={onClick}>New</Link>
