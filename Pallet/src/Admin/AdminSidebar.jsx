@@ -35,8 +35,8 @@ const AdminSidebar = ({ onClose }) => {
     window.dispatchEvent(new Event('roleChanged'));
     
     // Instant redirect if the Manager is sitting on a forbidden page
-    if (newRole === 'Manager' && (window.location.pathname.includes('users') || window.location.pathname.includes('offers'))) {
-       navigate('/admin');
+    if (newRole === 'Manager' && (window.location.pathname === '/admin' || window.location.pathname.includes('users') || window.location.pathname.includes('settings'))) {
+       navigate('/admin/products');
     }
   };
 
@@ -47,11 +47,11 @@ const AdminSidebar = ({ onClose }) => {
   };
 
   const navLinks = [
-    { name: "Dashboard", path: "/admin", icon: <FiGrid />, roles: ['Admin', 'Manager'] },
+    { name: "Dashboard", path: "/admin", icon: <FiGrid />, roles: ['Admin'] },
     { name: "Products", path: "/admin/products", icon: <FiBox />, roles: ['Admin', 'Manager'] },
     { name: "Orders", path: "/admin/orders", icon: <FiShoppingCart />, roles: ['Admin', 'Manager'] },
     { name: "Users", path: "/admin/users", icon: <FiUsers />, roles: ['Admin'] },
-    { name: "Offers", path: "/admin/offers", icon: <FiTag />, roles: ['Admin'] },
+    { name: "Offers", path: "/admin/offers", icon: <FiTag />, roles: ['Admin', 'Manager'] },
   ];
 
   // RBAC Navigation Filtering
@@ -110,7 +110,8 @@ const AdminSidebar = ({ onClose }) => {
           <span className="text-[10px] opacity-75 uppercase tracking-wider bg-black/20 px-2 py-1 rounded">Switch</span>
         </button>
 
-        <NavLink
+        {role === 'Admin' && (
+          <NavLink
             to="/admin/settings"
             onClick={() => onClose && onClose()}
             className={({ isActive }) =>
@@ -124,6 +125,7 @@ const AdminSidebar = ({ onClose }) => {
             <span className="text-lg"><FiSettings /></span>
             Settings
           </NavLink>
+        )}
         
         <button
           onClick={() => {

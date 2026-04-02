@@ -1,16 +1,16 @@
 const express = require('express');
 const { getOffers, createOffer, updateOffer, deleteOffer } = require('../controllers/offerController');
 const { protect } = require('../middleware/authMiddleware');
-const { admin } = require('../middleware/adminMiddleware');
+const { admin, manager } = require('../middleware/adminMiddleware');
 
 const router = express.Router();
 
 router.route('/')
-  .get(protect, admin, getOffers)
-  .post(protect, admin, createOffer);
+  .get(protect, manager, getOffers)
+  .post(protect, manager, createOffer);
 
 router.route('/:id')
-  .put(protect, admin, updateOffer)
-  .delete(protect, admin, deleteOffer);
+  .put(protect, manager, updateOffer)
+  .delete(protect, manager, deleteOffer);
 
 module.exports = router;

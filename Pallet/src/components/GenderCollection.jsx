@@ -29,7 +29,7 @@ const handleScroll = (direction) => {
             <div className="absolute bottom-8 left-8 bg-white/95 backdrop-blur-sm p-6 max-w-xs rounded-lg shadow-sm ">
               <h2 className="text-2xl font-bold text-primary mb-2">Women's Collection</h2>
               <Link 
-                to="/women" 
+                to="/collections/all?gender=women&size=&material=&brand=&maxPrice=150" 
                 className="text-sm font-bold uppercase tracking-wider text-gray-500 hover:text-secondary underline decoration-secondary decoration-2 underline-offset-4 transition-colors"
               >
                 Shop Now
@@ -47,7 +47,7 @@ const handleScroll = (direction) => {
             <div className="absolute bottom-8 left-8 bg-white/95 backdrop-blur-sm p-6 max-w-xs rounded-lg shadow-sm ">
               <h2 className="text-2xl font-bold text-primary mb-2">Men's Collection</h2>
               <Link 
-                to="/men" 
+                to="/collections/all?gender=men&size=&material=&brand=&maxPrice=150" 
                 className="text-sm font-bold uppercase tracking-wider text-gray-500 hover:text-secondary underline decoration-secondary decoration-2 underline-offset-4 transition-colors"
               >
                 Shop Now

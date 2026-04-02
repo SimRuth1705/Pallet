@@ -22,6 +22,7 @@ app.use('/api/users', require('./routes/userRoutes'));
 app.use('/api/orders', require('./routes/orderRoutes'));
 app.use('/api/offers', require('./routes/offerRoutes'));
 app.use('/api/dashboard', require('./routes/dashboardRoutes'));
+app.use('/api/settings', require('./routes/settingsRoutes'));
 
 // Basic health check route
 app.get('/', (req, res) => {

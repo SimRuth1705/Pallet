@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { FiDollarSign, FiShoppingCart, FiUsers, FiActivity, FiArrowUpRight, FiArrowDownRight, FiBox, FiClock, FiStar, FiMoreHorizontal } from "react-icons/fi";
+import { FiDollarSign, FiShoppingCart, FiUsers, FiActivity, FiArrowUpRight, FiArrowDownRight, FiBox, FiClock, FiStar, FiMoreHorizontal, FiDownload, FiFileText } from "react-icons/fi";
 import { toast } from "sonner";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const AdminDashboard = () => {
+  const navigate = useNavigate();
   const [dashboardData, setDashboardData] = useState({
     stats: {
       totalRevenue: "$0.00",
@@ -15,6 +16,15 @@ const AdminDashboard = () => {
     recentActivity: []
   });
   const [loading, setLoading] = useState(true);
+
+  // RBAC Redirection for Managers
+  useEffect(() => {
+    const role = localStorage.getItem('adminRole');
+    if (role === 'Manager') {
+      toast.info('Managers are redirected to Product Management');
+      navigate('/admin/products');
+    }
+  }, [navigate]);
 
   useEffect(() => {
     const fetchDashboardStats = async () => {
@@ -39,6 +49,43 @@ const AdminDashboard = () => {
 
     fetchDashboardStats();
   }, []);
+
+  const handleExportData = () => {
+    try {
+      // 1. Prepare data rows
+      const stats = dashboardData.stats;
+      const products = dashboardData.topProducts;
+      
+      let csvContent = "data:text/csv;charset=utf-8,";
+      csvContent += "Type,Category/Metric,Value/Sales,Revenue\n";
+      csvContent += `Stat,Total Revenue,${stats.totalRevenue}, \n`;
+      csvContent += `Stat,Active Orders,${stats.activeOrders}, \n`;
+      csvContent += `Stat,New Users,${stats.newUsers}, \n`;
+      csvContent += `Stat,Engagement Rate,${stats.engagementRate}, \n`;
+      
+      products.forEach(p => {
+        csvContent += `Product,${p.name},${p.sales},${p.revenue}\n`;
+      });
+
+      // 2. Trigger Download
+      const encodedUri = encodeURI(csvContent);
+      const link = document.createElement("a");
+      link.setAttribute("href", encodedUri);
+      link.setAttribute("download", `dashboard_export_${new Date().toISOString().split('T')[0]}.csv`);
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      
+      toast.success("Data exported successfully as CSV");
+    } catch (err) {
+      toast.error("Failed to export data");
+    }
+  };
+
+  const handleCreateReport = () => {
+    // Basic printer trigger with custom styles applied via @media print in CSS
+    window.print();
+  };
 
   // Map API stats to the UI card format with static sparklines/trends for visual effect
   const statCards = [
@@ -78,10 +125,18 @@ const AdminDashboard = () => {
           <p className="text-sm text-gray-500 mt-1">Live metrics perfectly synched with your platform.</p>
         </div>
         <div className="flex gap-3">
-          <button className="flex items-center justify-center gap-2 bg-white border border-gray-200 hover:bg-gray-50 text-gray-700 px-4 py-2 rounded-xl font-medium transition-colors shadow-sm text-sm">
+          <button 
+            onClick={handleExportData}
+            className="flex items-center justify-center gap-2 bg-white border border-gray-200 hover:bg-gray-50 text-gray-700 px-4 py-2 rounded-xl font-medium transition-colors shadow-sm text-sm"
+          >
+            <FiDownload className="w-4 h-4" />
             Export Data
           </button>
-          <button className="flex items-center justify-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-xl font-medium transition-all shadow-sm shadow-indigo-200 text-sm">
+          <button 
+            onClick={handleCreateReport}
+            className="flex items-center justify-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-xl font-medium transition-all shadow-sm shadow-indigo-200 text-sm"
+          >
+            <FiFileText className="w-4 h-4" />
             Create Report
           </button>
         </div>

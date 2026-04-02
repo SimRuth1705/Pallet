@@ -1,10 +1,11 @@
 const express = require('express');
-const { getDashboardStats } = require('../controllers/dashboardController');
+const { getSettings, updateSettings } = require('../controllers/settingsController');
 const { protect } = require('../middleware/authMiddleware');
 const { admin } = require('../middleware/adminMiddleware');
 
 const router = express.Router();
 
-router.route('/stats').get(protect, admin, getDashboardStats);
+router.get('/', getSettings);
+router.put('/', protect, admin, updateSettings);
 
 module.exports = router;

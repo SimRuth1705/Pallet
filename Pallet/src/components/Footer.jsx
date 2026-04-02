@@ -10,7 +10,7 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           
           <div>
-            <h3 className="text-xl font-bold mb-4">ShopName.</h3>
+            <h3 className="text-xl font-bold mb-4 font-brand uppercase tracking-widest">pallet.</h3>
             <p className="text-white/80 text-sm">
               Your one-stop destination for fashion, style, and elegance. 
               We bring the latest trends directly to your doorstep.
@@ -30,6 +30,7 @@ const Footer = () => {
           <div>
             <h4 className="text-lg font-semibold mb-4 text-white">Support</h4>
             <ul className="space-y-2 text-white/80 text-sm">
+              <li><Link to="/about" className="hover:text-white hover:underline transition">About Us</Link></li>
               <li><Link to="/contact" className="hover:text-white hover:underline transition">Contact Us</Link></li>
               <li><Link to="/faq" className="hover:text-white hover:underline transition">FAQ</Link></li>
               <li><Link to="/returns" className="hover:text-white hover:underline transition">Returns Policy</Link></li>
@@ -56,7 +57,7 @@ const Footer = () => {
 
         <div className="border-t border-white/10 mt-10 pt-6 flex flex-col md:flex-row justify-between items-center">
           <p className="text-white/60 text-sm">
-            &copy; {new Date().getFullYear()} ShopName. All rights reserved.
+            &copy; {new Date().getFullYear()} pallet. All rights reserved.
           </p>
           <div className="flex space-x-4 mt-4 md:mt-0">
             <SocialIcon icon={<FaFacebook />} />

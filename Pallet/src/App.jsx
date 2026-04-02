@@ -13,10 +13,9 @@ import ProductDetails from "./pages/ProductDetails";
 import MyOrderPage from "./pages/MyOrderPage";
 import Checkout from "./pages/Checkout";
 import OrderDetailsPage from "./pages/OrderDetailsPage";
-import Sport from "./pages/Sport";
-import Brands from "./pages/Brands";
-import NewArrivals from "./pages/NewArrivals";
 import Favorites from "./pages/Favorites";
+import About from "./pages/About";
+import Contact from "./pages/Contact";
 import AdminLayout from "./Admin/AdminLayout";
 import AdminProducts from "./Admin/AdminProducts";
 import AdminDashboard from "./Admin/AdminDashboard";
@@ -42,10 +41,9 @@ function App() {
             <Route path="/checkout" element={<Checkout />} />
             <Route path="/order-confirmation" element={<OrderDetailsPage />} />
             <Route path="/my-orders" element={<MyOrderPage />} />
-            <Route path="/sport" element={<Sport />} />
-            <Route path="/brands" element={<Brands />} />
-            <Route path="/new" element={<NewArrivals />} />
             <Route path="/favorite" element={<Favorites />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/contact" element={<Contact />} />
           </Route>
 
           <Route path="/admin" element={<AdminLayout />}>

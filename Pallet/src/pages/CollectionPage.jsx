@@ -86,6 +86,16 @@ function CollectionPage() {
       );
     }
 
+    if (params.new === "true") {
+      productsCopy = productsCopy.filter((item) => item.isNew);
+    }
+
+    if (params.sale === "true") {
+      productsCopy = productsCopy.filter(
+        (item) => item.isSale || (item.discountPrice && item.discountPrice < item.price)
+      );
+    }
+
     const sortValue = params.sort;
     if (sortValue === "low-high") {
       productsCopy.sort((a, b) => a.price - b.price);

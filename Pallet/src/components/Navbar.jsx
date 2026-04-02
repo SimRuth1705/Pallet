@@ -13,13 +13,15 @@ const NavLinks = ({ mobile, onClick }) => {
 
   return (
     <>
-      <Link to="/collections/women?gender=women&size=&material=&brand=&maxPrice=150" className={baseClass} onClick={onClick}>Women</Link>
-      <Link to="/collections/men?gender=men&size=&material=&brand=&maxPrice=150" className={baseClass} onClick={onClick}>Men</Link>
-      <Link to="/collections/kids?gender=kids&size=xs&material=cotton&brand=&maxPrice=150" className={baseClass} onClick={onClick}>Kids</Link>
-      <Link to="/sport" className={baseClass} onClick={onClick}>Sport</Link>
-      <Link to="/brands" className={baseClass} onClick={onClick}>Brands</Link>
-      <Link to="/new" className={baseClass} onClick={onClick}>New</Link>
-      <Link to="/sale" className={`${baseClass} ${mobile ? "text-red-600" : "text-light font-bold"}`} onClick={onClick}>Sale</Link>
+      <Link to="/collections/all?gender=Women" className={baseClass} onClick={onClick}>Women</Link>
+      <Link to="/collections/all?gender=Men" className={baseClass} onClick={onClick}>Men</Link>
+      <Link to="/collections/all?gender=Kids" className={baseClass} onClick={onClick}>Kids</Link>
+      <Link to="/collections/all?category=Sport" className={baseClass} onClick={onClick}>Sport</Link>
+      <Link to="/collections/all" className={baseClass} onClick={onClick}>Brands</Link>
+      <Link to="/collections/all?new=true" className={baseClass} onClick={onClick}>New</Link>
+      <Link to="/collections/all?sale=true" className={`${baseClass} ${mobile ? "text-red-600" : "text-light font-bold"}`} onClick={onClick}>Sale</Link>
+      <Link to="/about" className={baseClass} onClick={onClick}>About Us</Link>
+      <Link to="/contact" className={baseClass} onClick={onClick}>Contact</Link>
     </>
   );
 };

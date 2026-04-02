@@ -1,16 +1,54 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import login from "../assets/logo1.png"
 
 function Login() {
   const [Email, setEmail] = useState("");
   const [Password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
 
+  // Redirect if already logged in
+  useEffect(() => {
+    const token = localStorage.getItem("adminToken");
+    if (token) {
+      navigate("/profile");
+    }
+  }, [navigate]);
 
-  const handlesubmit = (e) => {
+  const handlesubmit = async (e) => {
     e.preventDefault();
-    console.log("Form submitted:", { Name, Email, Password });
-  }
+    setError("");
+    setIsLoading(true);
+    
+    try {
+      const res = await fetch("http://localhost:5000/api/auth/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: Email, password: Password }),
+      });
+      
+      const data = await res.json();
+      
+      if (data.success) {
+        localStorage.setItem("adminToken", data.token);
+        localStorage.setItem("adminRole", data.user.role);
+        localStorage.setItem("user", JSON.stringify(data.user));
+        
+        // Broadcast the change to sibling components
+        window.dispatchEvent(new Event('roleChanged'));
+        
+        navigate("/profile");
+      } else {
+        setError(data.message || "Login failed");
+      }
+    } catch (err) {
+      setError("An error occurred during login. Please try again.");
+    } finally {
+      setIsLoading(false);
+    }
+  };
   return (
     <section>
       <div className="flex">
@@ -25,8 +63,13 @@ function Login() {
 
             <h1 className="text-2xl font-bold text-center mb-6">Hi There!</h1>
             <p className="text-center mb-6">
-              Enter Your Username and Password To Login
+              Enter Your Email and Password To Login
             </p>
+            {error && (
+              <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4 text-sm" role="alert">
+                <span className="block sm:inline">{error}</span>
+              </div>
+            )}
             <div className="mb-4">
               <label htmlFor="" className="block text-sm font-semibold mb-2">
                 Email
@@ -55,9 +98,10 @@ function Login() {
             </div>
             <button
               type="submit"
-              className="flex-1 bg-[#9CAFAA] w-full text-white py-3 px-8 rounded-md font-bold hover:bg-[#D6A99D] transition-all shadow-lg uppercase tracking-wider"
+              disabled={isLoading}
+              className={`flex-1 bg-primary w-full text-white py-3 px-8 rounded-md font-bold hover:bg-secondary transition-all shadow-lg uppercase tracking-wider ${isLoading ? 'opacity-70 cursor-not-allowed' : ''}`}
             >
-              Sign Up
+              {isLoading ? "Logging in..." : "Login"}
             </button>
             <p className="mt-6 text-center text-sm">
               Don't Have An Account{" "}

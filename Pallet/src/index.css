@@ -61,3 +61,48 @@
 ::-webkit-scrollbar-thumb:hover {
   background: #555;
 }
+/* Print Styles for Dashboard Reports */
+@media print {
+  /* Hide navigation, sidebar, and non-essential UI */
+  nav, 
+  aside, 
+  .no-print,
+  button,
+  footer,
+  .sidebar,
+  .admin-sidebar,
+  [role="navigation"] {
+    display: none !important;
+  }
+
+  /* Reset layout for full width printing */
+  body, 
+  main, 
+  .main-content,
+  .dashboard-container {
+    padding: 0 !important;
+    margin: 0 !important;
+    width: 100% !important;
+    background: white !important;
+  }
+
+  /* Ensure cards and charts are visible and well-spaced */
+  .card, 
+  .bg-white {
+    box-shadow: none !important;
+    border: 1px solid #eee !important;
+    break-inside: avoid;
+    margin-bottom: 20px !important;
+  }
+
+  /* Force colors and backgrounds in some browsers */
+  * {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  /* Page margins */
+  @page {
+    margin: 2cm;
+  }
+}
